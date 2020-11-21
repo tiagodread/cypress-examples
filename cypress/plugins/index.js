@@ -16,6 +16,14 @@
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-    // `on` is used to hook into various events Cypress emits
-    // `config` is the resolved Cypress config
+    const fs = require('fs')
+
+    on('task', {
+        readFileMaybe(filename) {
+            if (fs.existsSync(filename)) {
+                return fs.readFileSync(filename, 'utf8')
+            }
+            return null
+        }
+    })
 }
