@@ -20,9 +20,22 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-function getConfigurationByEnv(ENVIRONMENT) {
+function getConfigurationByEnv(config) {
+  const ENVIRONMENT = config.env.ENVIRONMENT || 'local';
+
+  // verify if the environment variable is set
+  if (!config.env.ENVIRONMENT) {
+    throw new Error('CYPRESS_ENVIRONMENT environment variable is not set');
+  }
+
+  // verify if the environment is valid
+  if (ENVIRONMENT !== 'local' && ENVIRONMENT !== 'stage' && ENVIRONMENT !== 'prod') {
+    throw new Error(`Invalid environment: ${ENVIRONMENT}`);
+  }
+
   const pathToConfigFile = path.resolve('cypress/config', `${ENVIRONMENT}.json`);
-  // check if file exists
+
+  // check if config file exists
   if (!fs.existsSync(pathToConfigFile)) {
     throw new Error(`Config file ${pathToConfigFile} does not exist`);
   }
@@ -32,6 +45,5 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
-  const ENVIRONMENT = config.env.ENVIRONMENT || 'local';
-  return getConfigurationByEnv(ENVIRONMENT)
+  return getConfigurationByEnv(config)
 }
