@@ -16,7 +16,22 @@
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
+
+const fs = require('fs-extra');
+const path = require('path');
+
+function getConfigurationByEnv(ENVIRONMENT) {
+  const pathToConfigFile = path.resolve('cypress/config', `${ENVIRONMENT}.json`);
+  // check if file exists
+  if (!fs.existsSync(pathToConfigFile)) {
+    throw new Error(`Config file ${pathToConfigFile} does not exist`);
+  }
+  return fs.readJson(pathToConfigFile);
+}
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
+  const ENVIRONMENT = config.env.ENVIRONMENT || 'local';
+  return getConfigurationByEnv(ENVIRONMENT)
 }

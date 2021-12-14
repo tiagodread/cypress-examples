@@ -1,0 +1,27 @@
+{
+    "baseUrl": "https://stage.redhat.com",
+    "video": false,
+    "retries": {
+        "runMode": 1,
+        "openMode": 1
+    },
+    "viewportWidth": 1920,
+    "viewPortHeight": 1080,
+    "projectId": "5d8f8f8f-c9c9-4f5f-b8c8-c8c8c8c8c8c8",
+    "services": [
+        {
+            "name": "hub",
+            "api_url": "https://stage.redhat.com/hub/api/v1/",
+            "ui_url": "https://stage.redhat.com/hub/",
+            "username": "admin",
+            "password": "admin"
+        },
+        {
+            "name": "analytics",
+            "api_url": "https://stage.redhat.com/analytics/api/v1/",
+            "ui_url": "https://stage.redhat.com/analytics/",
+            "username": "admin",
+            "password": "admin"
+        }
+    ]
+}
