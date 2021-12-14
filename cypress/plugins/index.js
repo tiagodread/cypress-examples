@@ -15,15 +15,8 @@
 /**
  * @type {Cypress.PluginConfig}
  */
+// eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
-    const fs = require('fs')
-
-    on('task', {
-        readFileMaybe(filename) {
-            if (fs.existsSync(filename)) {
-                return fs.readFileSync(filename, 'utf8')
-            }
-            return null
-        }
-    })
+  // `on` is used to hook into various events Cypress emits
+  // `config` is the resolved Cypress config
 }
